@@ -4,8 +4,4 @@
     "rollForward": "latestMajor",
     "allowPrerelease": false
   }
-
-  "dependencies": {
-  "glob-parent": ">=5.1.2"
-}
 }

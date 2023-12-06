@@ -36,19 +36,17 @@ export default function ActivityForm({
     setActivity({ ...activity, [name]: value });
   }
 
-
   return (
     <Segment clearing>
       <Form onSubmit={handleSubmit} autoComplete="Off">
         <Form.Input
           placeholder="Title"
           value={activity.title}
-          name="title"
           onChange={handleInputOnChange}
         />
         <Form.TextArea
           placeholder="Description"
-          value={activity.description}
+          ue={activity.description}
           name="description"
           onChange={handleInputOnChange}
         />
