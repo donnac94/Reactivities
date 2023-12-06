@@ -42,11 +42,12 @@ export default function ActivityForm({
         <Form.Input
           placeholder="Title"
           value={activity.title}
+          name="title"
           onChange={handleInputOnChange}
         />
         <Form.TextArea
           placeholder="Description"
-          ue={activity.description}
+          value={activity.description}
           name="description"
           onChange={handleInputOnChange}
         />
@@ -57,7 +58,7 @@ export default function ActivityForm({
           onChange={handleInputOnChange}
         />
         <Form.Input
-          placeholder="Date"
+          type="date"
           value={activity.date}
           name="date"
           onChange={handleInputOnChange}
