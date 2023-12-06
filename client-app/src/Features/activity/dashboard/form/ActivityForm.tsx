@@ -36,7 +36,6 @@ export default function ActivityForm({
     setActivity({ ...activity, [name]: value });
   }
 
-  //To do: Figure out why i cant edit the Description, category, date
   return (
     <Segment clearing>
       <Form onSubmit={handleSubmit} autoComplete="Off">
@@ -49,19 +48,19 @@ export default function ActivityForm({
         <Form.TextArea
           placeholder="Description"
           value={activity.description}
-          name="Description"
+          name="description"
           onChange={handleInputOnChange}
         />
         <Form.Input
           placeholder="Category"
           value={activity.category}
-          name="Category"
+          name="category"
           onChange={handleInputOnChange}
         />
         <Form.Input
-          placeholder="Date"
+          type="date"
           value={activity.date}
-          name="Date"
+          name="date"
           onChange={handleInputOnChange}
         />
         <Form.Input

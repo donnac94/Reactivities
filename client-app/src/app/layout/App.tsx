@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import "./App.tsx";
-import axios from "axios";
 import { Container } from "semantic-ui-react";
 import { Activity } from "../models/activity.ts";
 import NavBar from "./NavBar.tsx";
 import ActivityDashboard from "../../Features/activity/dashboard/ActivityDashboard.tsx";
 import { v4 as uuid } from "uuid";
+import agent from "../api/agents.ts";
 
 function App() {
   const [activities, setActivities] = useState<Activity[]>([]);
@@ -15,12 +15,15 @@ function App() {
   const [editMode, setEditMode] = useState(false);
 
   useEffect(() => {
-    axios
-      .get<Activity[]>("http://localhost:5000/api/activities")
-      .then((response) => {
-        console.log(response);
-        setActivities(response.data);
-      });
+    agent.Activities.list().then((response) => {
+      console.log(response);
+      let activities: Activity[] = [];
+      response.forEach(activity => {
+        activity.date = activity.date.split('T')[0];
+        activities.push(activity);
+      })
+      setActivities(activities);
+    });
   }, []);
 
   function handleSelectActivity(id: string) {
@@ -51,6 +54,10 @@ function App() {
     setSelectedActivity(activity);
   }
 
+  function handleDeleteActivity(id: string) {
+    setActivities([...activities.filter((x) => x.id !== id)]);
+  }
+
   return (
     <div>
       <NavBar openForm={handleFormOpen} />
@@ -64,6 +71,7 @@ function App() {
         openForm={handleFormOpen}
         closeForm={handleFormClose}
         createOrEdit={handleCreateOrEditActivity}
+        deleteActivity={handleDeleteActivity}
       />
     </div>
   );
