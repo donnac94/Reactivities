@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import "./App.tsx";
-import { Container } from "semantic-ui-react";
+import { Container, } from "semantic-ui-react";
 import { Activity } from "../models/activity.ts";
 import NavBar from "./NavBar.tsx";
 import ActivityDashboard from "../../Features/activity/dashboard/ActivityDashboard.tsx";
@@ -75,7 +75,12 @@ function App() {
   }
 
   function handleDeleteActivity(id: string) {
-    setActivities([...activities.filter((x) => x.id !== id)]);
+    setSubmitting(true);
+    agent.Activities.delete(id).then(() => {
+      setActivities([...activities.filter((x) => x.id !== id)]);  
+      setSubmitting(false);
+    })
+    
   }
 
   if (loading) return <LoadingComponent content="Loading app" />;
@@ -94,7 +99,7 @@ function App() {
         closeForm={handleFormClose}
         createOrEdit={handleCreateOrEditActivity}
         deleteActivity={handleDeleteActivity}
-        submitting ={submitting}
+        submitting={submitting}
       />
     </div>
   );
