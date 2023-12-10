@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import "./App.tsx";
-import { Container } from "semantic-ui-react";
+import { Button, Container } from "semantic-ui-react";
 import { Activity } from "../models/activity.ts";
 import NavBar from "./NavBar.tsx";
 import ActivityDashboard from "../../Features/activity/dashboard/ActivityDashboard.tsx";
@@ -8,6 +8,7 @@ import { v4 as uuid } from "uuid";
 import agent from "../api/agent.ts";
 import LoadingComponent from "./LoadingComponent.tsx";
 import { useStore } from "../stores/store.ts";
+import { observer } from "mobx-react-lite";
 
 function App() {
   const { activityStore } = useStore();
@@ -92,6 +93,11 @@ function App() {
       <NavBar openForm={handleFormOpen} />
       <Container style={{ marginTop: "7em" }}>
         <h2>{activityStore.title} </h2>
+        <Button
+          content="Add exclemation!"
+          positive
+          onClick={activityStore.setTitle}
+        />
         <ActivityDashboard
           activities={activities}
           selectedActivity={selectActivity}
@@ -109,4 +115,4 @@ function App() {
   );
 }
 
-export default App;
+export default observer(App);
