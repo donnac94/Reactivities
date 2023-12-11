@@ -2,23 +2,22 @@ import React, { ChangeEvent, useEffect, useState } from "react";
 import { Button, Form, Segment } from "semantic-ui-react";
 import { useStore } from "../../../../app/stores/store";
 import { observer } from "mobx-react-lite";
-import { useParams } from "react-router-dom";
-import { act } from "react-dom/test-utils";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { Activity } from "../../../../app/models/activity";
 import LoadingComponent from "../../../../app/layout/LoadingComponent";
+import { v4 as uuid } from 'uuid';
 
 export default observer(function ActivityForm() {
   const { activityStore } = useStore();
   const {
-    selectedActivity,
     createActivity,
     updateActivity,
     loading,
     loadActivity,
     loadingInitial,
   } = activityStore;
-
   const { id } = useParams();
+  const navigate = useNavigate();
 
   const [activity, setActivity] = useState<Activity>({
     id: "",
@@ -35,7 +34,12 @@ export default observer(function ActivityForm() {
   }, [id, loadActivity]);
 
   function handleSubmit() {
-    activity.id ? updateActivity(activity) : createActivity(activity);
+    if (!activity.id) {
+      activity.id = uuid();
+      createActivity(activity).then(() => navigate (`/activities/${activity.id}`))
+    } else {
+      updateActivity(activity).then(() => navigate(`/activities/${activity.id}`)); 
+    } 
   }
 
   function handleInputOnChange(
@@ -92,7 +96,7 @@ export default observer(function ActivityForm() {
           type="submit"
           content="Submit"
         />
-        <Button floated="right" type="submit" content="Cancel" />
+        <Button  as = {Link} to='/activities' floated="right" type="submit" content="Cancel" />
       </Form>
     </Segment>
   );
