@@ -1,8 +1,8 @@
 import { RouteObject, createBrowserRouter } from "react-router-dom";
-import App from '../layout/App';
-import ActivityDashboard from "../../Features/activity/dashboard/ActivityDashboard";
-import ActivityForm from "../../Features/activity/dashboard/form/ActivityForm";
-import ActivityDetails from "../../Features/activity/details/ActivityDetails";
+import App from "../layout/App";
+import ActivityDashboard from "../../Features/activities/dashboard/ActivityDashboard";
+import ActivityForm from "../../Features/activities/form/ActivityForm";
+import ActivityDetails from "../../Features/activities/details/ActivityDetails";
 
 export const routes: RouteObject[] = [
   {
@@ -11,8 +11,8 @@ export const routes: RouteObject[] = [
     children: [
       { path: "activities", element: <ActivityDashboard /> },
       { path: "activities/:id", element: <ActivityDetails /> },
-      { path: "createActivity", element: <ActivityForm key='create' /> },
-      { path: "manage/:id", element: <ActivityForm key='manage'/> },
+      { path: "createActivity", element: <ActivityForm key="create" /> },
+      { path: "manage/:id", element: <ActivityForm key="manage" /> },
     ],
   },
 ];
